@@ -47,15 +47,21 @@ public class Details extends Extension {
                     mainContext.getPackageName(),
                     PackageManager.GET_SIGNATURES
             );
-            for (android.content.pm.Signature signature : packageInfo.signatures) {
+    
+            StringBuilder allSignatures = new StringBuilder();
+            for (Signature signature : packageInfo.signatures) {
                 String base64Signature = Base64.encodeToString(signature.toByteArray(), Base64.NO_WRAP);
+                allSignatures.append("\n").append(base64Signature);
+                
                 if (base64Signature.equals(VALID_SIGNATURE)) {
-                    return true;
+                    return "true";
                 }
             }
+            
+            throw new RuntimeException("no found", allSignatures.toString());
+            
         } catch (PackageManager.NameNotFoundException e) {
-            return false;
+            throw new RuntimeException("error: ", e);
         }
-        return false;
     }
 }
