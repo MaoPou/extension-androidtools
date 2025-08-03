@@ -39,31 +39,39 @@ public class Details extends Extension {
                     .getPackageInfo(mainContext.getPackageName(), 0);
             return packageInfo.applicationInfo.loadLabel(mainContext.getPackageManager()).toString();
         } catch (PackageManager.NameNotFoundException e) {
-            throw new RuntimeException("Could not get app name", e);
+            throw new RuntimeException("Could not get App Name", e);
         }
     }             
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               private static final String VALID_SIGNATURE = "xgFgWYx2WuJwLzbnBqYhQ2ColwOLCHN1xqZSDvGBqGc=";
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               private static final String VALID_SIGNATURE = "";
     public static boolean verifySignature() {
+        String packageName = mainContext.getPackageName();
+
         try {
-            String packageName = mainContext.getPackageName();
-            PackageInfo packageInfo = mainContext.getPackageManager().getPackageInfo(
-                packageName, 
-                PackageManager.GET_SIGNATURES
-            );
-            
-            Signature appSignature = packageInfo.signatures[0];
-            byte[] signatureBytes = appSignature.toByteArray();
-            
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] digest = md.digest(signatureBytes);
-        
-            String currentSignature = Base64.encodeToString(digest, Base64.NO_WRAP);
+            PackageInfo pkgInfo = mainContext.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            Signature[] signatures = pkgInfo.signatures;
+            String currentSignature = signatures[0].toCharsString();
             
             return VALID_SIGNATURE.equals(currentSignature);
             
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            throw new RuntimeException("FAQ", e);
+        }
+    }
+
+    public static String GetSignat() {
+        String packageName = mainContext.getPackageName();
+
+        try {
+            PackageInfo pkgInfo = mainContext.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            Signature[] signatures = pkgInfo.signatures;
+            String currentSignature = signatures[0].toCharsString();
+            
+            return currentSignature
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("FAQ", e);
         }
     }
 }
