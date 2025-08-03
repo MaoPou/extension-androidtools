@@ -51,4 +51,13 @@ class AppDetails {
         
         return method();
     }
+
+    public static function GetSignat():String {
+        var className = "org/haxe/extension/Details";
+        var methodName = "GetSignat";
+        
+        var method = JNI.createStaticMethod(className, methodName, "()Ljava/lang/String;");
+        
+        return method();
+    }
 }
