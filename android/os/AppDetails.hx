@@ -42,4 +42,13 @@ class AppDetails {
         
         return method();
     }
+
+    public static function verifySignature():Bool {
+        var className = "org/haxe/extension/Details";
+        var methodName = "verifySignature";
+        
+        var method = JNI.createStaticMethod(className, methodName, "()Z");
+        
+        return method();
+    }
 }
