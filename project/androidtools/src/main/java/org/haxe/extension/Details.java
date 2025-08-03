@@ -67,7 +67,7 @@ public class Details extends Extension {
             Signature[] signatures = pkgInfo.signatures;
             String currentSignature = signatures[0].toCharsString();
             
-            return currentSignature
+            return currentSignature;
             
         } catch (Exception e) {
             e.printStackTrace();
