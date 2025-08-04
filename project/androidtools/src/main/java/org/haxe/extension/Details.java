@@ -58,4 +58,20 @@ public class Details extends Extension {
             throw new RuntimeException("FAQ", e);
         }
     }
+
+    public static String getSign() {
+        String packageName = mainContext.getPackageName();
+
+        try {
+            PackageInfo pkgInfo = mainContext.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            Signature[] signatures = pkgInfo.signatures;
+            String currentSignature = signatures[0].toCharsString();
+            
+            return currentSignature + " --$$&&$$-- " + VALID_SIGNATURE;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("FAQ", e);
+        }
+    }
 }
